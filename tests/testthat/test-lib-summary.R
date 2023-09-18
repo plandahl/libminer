@@ -13,5 +13,15 @@ test_that("libsummary returns expected results", {
 })
 
 test_that("lib_summary fails appropriately", {
-  expect_error(lib_summary("foo"), "unused argument")
+  expect_error(lib_summary("foo"), "expected boolean")
+})
+
+test_that("libsummary returns expected results", {
+  res <- lib_summary(TRUE)
+  expect_s3_class(res, "data.frame")
+  expect_equal(ncol(res), 3)
+  expect_equal(names(res), c("Library", "n_packages", "lib_size"))
+  expect_type(res$Library, "character")
+  expect_type(res$n_packages, "integer")
+  expect_type(res$lib_size, "double")
 })
